@@ -1,0 +1,42 @@
+##################
+#comments need to be translated
+##################
+
+
+
+#for the visualization
+require("ggplot2")
+
+#Daten einlesen
+data <- read.csv("whatsapp.csv", header = FALSE, sep = ";")
+#datums- und zeitspalte mergen
+data[,1] <- paste(data[,1], data[,2])
+data <- data[,-2]
+#deskriptive spaltennamen geben
+colnames(data)[1:3] <- c("time", "name", "surname")
+colnames(data)[1:3]
+#zeitspalte in datumsformat konvertieren
+data$time <- strptime(data$time, "%d.%m.%Y %H:%M:%S")
+#unnötiges "du" level der namen droppen
+data <- data[data$name != "Du",]
+data <- droplevels(data)
+
+#mit häufigkeiten spielen
+table(data$name)
+table(months(data$time))
+table(sort(data$time$hour))
+table(data$name[which(data$time$hour < 1)])
+
+#plotten mit ggplot
+ggplot(data[data$time$hour < 6,], aes(x = time$hour, fill = name)) +
+  stat_count(position = "dodge", show.legend = TRUE) +
+  ggtitle("Journocode conversations per hour") +
+  ylab("# of messages") + xlab("hours of day")
+  theme(plot.title = element_text(lineheight = .8, face = "bold"))
+
+ggplot(data, aes(x = time$hour, fill = name)) +
+  stat_count(position = "dodge", show.legend = TRUE) +
+  ggtitle("Journocode conversations per hour") +
+  ylab("# of messages") + xlab("time")
+  theme(plot.title = element_text(lineheight = .8, face = "bold"))
+  
