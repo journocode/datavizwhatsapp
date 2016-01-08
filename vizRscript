@@ -4,14 +4,24 @@
 
 
 
-#for the visualization
+#for the visualization you need to add the package "ggplot2" to your user library.
+#this can be done with this function:
 require("ggplot2")
 
-#Daten einlesen
+#then you want to read in the pre-cleaned data in the .csv file format.
+#you also want to make sure that 'header' is set to 'FALSE' because there
+#are no headers in this file, and that 'sep' is set to ';' because for some
+#reason that is the seperating character Microsoft Excel uses
 data <- read.csv("whatsapp.csv", header = FALSE, sep = ";")
-#datums- und zeitspalte mergen
+
+#to simplify things you may want to merge the first column, which gives the date,
+#with the second one, which gives the time.
+#You can accomplish this by using the 'paste' function as follows
 data[,1] <- paste(data[,1], data[,2])
+#now you still have a second column with redundant values.
+#This can simply be removed from the dataframe
 data <- data[,-2]
+
 #deskriptive spaltennamen geben
 colnames(data)[1:3] <- c("time", "name", "surname")
 colnames(data)[1:3]
