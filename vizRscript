@@ -1,7 +1,4 @@
-##################
-#comments need to be translated
-##################
-
+###Tutorial on how to plot a colorful barplot of your previously cleaned Whatsapp chatlog.###
 
 
 #For the visualization you need to add the package "ggplot2" to your user library.
