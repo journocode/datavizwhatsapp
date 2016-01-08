@@ -4,37 +4,49 @@
 
 
 
-#for the visualization you need to add the package "ggplot2" to your user library.
+#For the visualization you need to add the package "ggplot2" to your user library.
 #this can be done with this function:
 require("ggplot2")
 
-#then you want to read in the pre-cleaned data in the .csv file format.
+#Then you want to read in the pre-cleaned data in the .csv file format.
 #you also want to make sure that 'header' is set to 'FALSE' because there
 #are no headers in this file, and that 'sep' is set to ';' because for some
 #reason that is the seperating character Microsoft Excel uses
 data <- read.csv("whatsapp.csv", header = FALSE, sep = ";")
 
-#to simplify things you may want to merge the first column, which gives the date,
+#To simplify things you may want to merge the first column, which gives the date,
 #with the second one, which gives the time.
-#You can accomplish this by using the 'paste' function as follows
+#You can accomplish this by using the 'paste' function as follows:
 data[,1] <- paste(data[,1], data[,2])
 #now you still have a second column with redundant values.
 #This can simply be removed from the dataframe
 data <- data[,-2]
 
-#deskriptive spaltennamen geben
+#Most of the time it's easier to work with a dataframe
+#if you name at least the important columns. For example like this:
 colnames(data)[1:3] <- c("time", "name", "surname")
 colnames(data)[1:3]
-#zeitspalte in datumsformat konvertieren
+
+#Using the function 'strptime' you can now convert the first column
+#containing the date and time into a 'Posixlt' object. From this date object you
+#will easily be able to extract certain time aspects of the chat history
+#- like specifically the hours or the months - later in this tutorial.
 data$time <- strptime(data$time, "%d.%m.%Y %H:%M:%S")
-#unnötiges "du" level der namen droppen
+
+#In some cases, depending on your chat history and if you're the group's admin,
+#you will encounter an extra level 'Du' or 'You',
+#if you call up the levels of your 'name' columns. You can remove it like this:
 data <- data[data$name != "Du",]
+#'!=' means 'not equal to', which in this case ignores all rows that contain the word 'Du'.
+#the function 'droplevels' simply removes all levels which contain zero values.
 data <- droplevels(data)
 
-#mit häufigkeiten spielen
-table(data$name)
-table(months(data$time))
+#now that everything's in order, you can play around a little bit with the data.
+#The easiest and most straightforward way is by using the function 'table':
+table(data$name) #prints the count of messages each person sent
+table(months(data$time)) #prints the message count for each month
 table(sort(data$time$hour))
+#prints the count for every hour, sorted from 0 (12 am) to 23 (11 pm)
 table(data$name[which(data$time$hour < 1)])
 
 #plotten mit ggplot
