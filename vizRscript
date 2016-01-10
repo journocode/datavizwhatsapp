@@ -9,7 +9,7 @@ require("ggplot2")
 #you also want to make sure that 'header' is set to 'FALSE' because there
 #are no headers in this file, and that 'sep' is set to ';' because for some
 #reason that is the seperating character Microsoft Excel uses
-data <- read.csv("whatsapp.csv", header = FALSE, sep = ";")
+data <- read.csv("yourfilename.csv", header = FALSE, sep = ";")
 
 #To simplify things you may want to merge the first column, which gives the date,
 #with the second one, which gives the time.
