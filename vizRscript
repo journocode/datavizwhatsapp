@@ -71,5 +71,5 @@ ggplot(data, aes(x = time$hour, fill = name)) +
   
 #Now feel free to play a little with this by yourself!
 #Try changing the values for the x axis ('aes(x = ...)') or change the title for example.
-#Or, if you feel motivated enough, try those steps with your own pre-cleaned .csv chatlog!
-#See the tutorial on pre-cleaning the log at www.journocode.com , "Project: Whatsapp chatlogs"
+
+#See the tutorial on pre-cleaning the log at www.journocode.com , "R project #1: Visualization of WhatsApp chat logs"
