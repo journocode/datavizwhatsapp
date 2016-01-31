@@ -1,11 +1,12 @@
-
-
 ###Tutorial on how to plot a colorful barplot of your previously cleaned Whatsapp chatlog.###
 
 
 #For the visualization you need to add the package "ggplot2" to your user library.
 #this can be done with this function:
 require("ggplot2")
+
+#Now, load the clean dataset we created with the whatsapp_cleaning.R script
+load("C:/Users/yourname/folder/anotherfolder/lastfolderipromise/whatsapp_cleaned.Rdata")
 
 #Now you can start visualizing your data. We have two examples prepared for you:
 ggplot(data[data$time$hour < 6,], #this plots only the number of messages sent before 6 am
@@ -32,4 +33,4 @@ ggplot(data, aes(x = time$hour, fill = name)) +
 #Now feel free to play a little with this by yourself!
 #Try for example changing the values for the x-axis aes(x = ...)  to chat$time$months or simply changing the title.
 
-If you have any questions, feel free to contact me or one of the other journocode members via www.journocode.com
+#If you have any questions, feel free to contact me or one of the other journocode members via www.journocode.com
