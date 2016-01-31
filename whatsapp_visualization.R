@@ -9,7 +9,7 @@ require("ggplot2")
 load("C:/Users/yourname/folder/anotherfolder/lastfolderipromise/whatsapp_cleaned.Rdata")
 
 #Now you can start visualizing your data. We have two examples prepared for you:
-ggplot(data[data$time$hour < 6,], #this plots only the number of messages sent before 6 am
+ggplot(chat[chat$time$hour < 6,], #this plots only the number of messages sent before 6 am
   aes(x = time$hour, fill = name)) + #this manipulates the aesthetics of your plot.
   #In this case it tells the function to put the hours of the column 'time' on the 'x' axis and
   #associate('fill') the bars with the different names
@@ -24,7 +24,7 @@ ggplot(data[data$time$hour < 6,], #this plots only the number of messages sent b
 #As you can see, with 'ggplot2' it is important that you don't connect
 #the separate arguments of the function with ',' but with '+'
 
-ggplot(data, aes(x = time$hour, fill = name)) +
+ggplot(chat, aes(x = time$hour, fill = name)) +
   stat_count(position = "dodge", show.legend = TRUE) +
   ggtitle("Journocode conversations per hour") +
   ylab("# of messages") + xlab("time") +
